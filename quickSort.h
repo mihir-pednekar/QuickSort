@@ -14,11 +14,17 @@ Step 6: Pivot element separates into two partition having new left and right ind
  
 */
 
-#include <iostream>
-#include <cstdlib>
 #include "utils.h"
 
 namespace QuickSort{
+
+    // swap by reference.
+	void swap(int &a, int &b){
+		//if max is less than min then swap
+        	int temp=a;
+        	a=b;
+        	b=temp;
+	}
 
     //partitions the array to move small elements to the 
     //left of pivot returns the pivot index
@@ -29,10 +35,10 @@ namespace QuickSort{
         for(int r=left; r<right; r++){
             if(data[r]<=pivot){
                 l++;
-                utils::swap(data[l],data[r]);
+                swap(data[l],data[r]);
             }
         }
-        utils::swap(data[l+1],data[right]);
+        swap(data[l+1],data[right]);
         return l+1;
     }
     
@@ -44,4 +50,36 @@ namespace QuickSort{
             sort(data, partIndex+1,right); 
         } 
     }
+    
+    //returns a random number between range min and max
+	int getRandom(int min, int max){
+    		int random = rand()%max + min;
+    		while(true){
+        		//std::cout<<"Test Random: "<<random<<"\n";
+        		if(random>=min && random<=max)
+        		    break;
+        		else
+        		    random = rand()%max + min;
+    		}
+	    return random;
+	}
+
+	//fills array of parameter size with random numbers using getRandom() function
+	void fillArray(int data[], int size, int min, int max){
+		for(int i=0;i<size;i++){
+			data[i]=getRandom(min,max);
+    		}
+	}
+
+	//prints array of parameter size
+	void printArray(int data[], int size){
+    		std::cout<<"[";
+    		for(int i=0;i<size;i++){
+        		std::cout<<data[i];
+        		if(i==size-1)
+        	    	std::cout<<"]\n";
+        		else
+        	    	std::cout<<",";
+    		}
+	}
 }
