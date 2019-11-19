@@ -5,34 +5,24 @@
 CC = g++
 
 # define any compile-time flags
-CFLAGS = -Wall -o
+CFLAGS = -Wall -c
 
-# define any directories containing header files
-#
-INCLUDES = -I../include
-
-# define the C source files
-SRCS = main.cpp quickSort.cpp
-
-# define the C object files 
-
-OBJS = $(SRCS:.cpp=.o)
+#remove files
+RM = rm -rf
 
 # define the executable file 
 MAIN = main
 
 all:    $(MAIN)
-        @echo  Simple compiler named mycc has been compiled
 
-$(MAIN): $(OBJS) 
-        $(CC) $(CFLAGS) $(INCLUDES) -o $(MAIN) $(OBJS)
+$(MAIN): quickSort.o main.o
+	$(CC) main.o quickSort.o -o $(MAIN)
 
-# this is a suffix replacement rule for building .o's from .c's
-# it uses automatic variables $<: the name of the prerequisite of
-# the rule(a .c file) and $@: the name of the target of the rule (a .o file) 
-# (see the gnu make manual section about automatic variables)
-#.c.o:
-#        $(CC) $(CFLAGS) $(INCLUDES) -c $<  -o $@
+main.o: main.cpp
+	$(CC) $(CFLAGS) main.cpp
+
+quickSort.o: quickSort.cpp
+	$(CC) $(CFLAGS) quickSort.cpp
 
 clean:
-        $(RM) *.o *~ $(MAIN)
+	$(RM) *.o $(MAIN)
