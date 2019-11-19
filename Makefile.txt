@@ -15,14 +15,11 @@ MAIN = main
 
 all:    $(MAIN)
 
-$(MAIN): quickSort.o main.o
-	$(CC) main.o quickSort.o -o $(MAIN)
+$(MAIN): main.o
+	$(CC) main.o -o $(MAIN)
 
 main.o: main.cpp
 	$(CC) $(CFLAGS) main.cpp
-
-quickSort.o: quickSort.cpp
-	$(CC) $(CFLAGS) quickSort.cpp
 
 clean:
 	$(RM) *.o $(MAIN)
