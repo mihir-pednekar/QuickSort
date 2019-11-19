@@ -13,13 +13,19 @@ RM = rm -rf
 # define the executable file 
 MAIN = main
 
+# target directory of the executable file 
+T_DIR = target
+
+# build directory of the executable file 
+#B_DIR = build
+
 all:    $(MAIN)
 
 $(MAIN): main.o
-	$(CC) main.o -o $(MAIN)
+	$(CC) main.o -o $(T_DIR)/$(MAIN)
 
 main.o: main.cpp
 	$(CC) $(CFLAGS) main.cpp
 
 clean:
-	$(RM) *.o $(MAIN)
+	$(RM) *.o $(T_DIR)/$(MAIN)
